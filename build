@@ -144,7 +144,7 @@ function setConfigSite {
     fi
 
     echo "#include <pj/config_site_sample.h>" >> "$CONFIG_SITE_PATH"
-    
+
 }
 
 function buildPjSip {
@@ -172,7 +172,11 @@ function buildPjSip {
     echo "End config Android"
 
     make dep >>"${FINAL_BUILD_LOGS}/${arch}.log" 2>&1
+    echo "End make dep"
+
     make clean >>"${FINAL_BUILD_LOGS}/${arch}.log" 2>&1
+    echo "End make clean"
+
     make >>"${FINAL_BUILD_LOGS}/${arch}.log" 2>&1
 
     echo "Compile PJSUA for arch $arch ..."
