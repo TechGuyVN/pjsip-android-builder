@@ -48,8 +48,8 @@ function setConfigSite {
     echo "#define PJMEDIA_HAS_TURN 1" >> "$CONFIG_SITE_PATH"
     echo "#define PJMEDIA_HAS_ICE 1" >> "$CONFIG_SITE_PATH"
     echo "#define PJ_LOG_MAX_LEVEL 6" >> "$CONFIG_SITE_PATH"
-    echo "#define PJ_HAS_SSL_SOCK 1" >> "$CONFIG_SITE_PATH"
-    echo "#define PJ_HAS_TLS_SOCK 1" >> "$CONFIG_SITE_PATH"
+    # echo "#define PJ_HAS_SSL_SOCK 1" >> "$CONFIG_SITE_PATH"
+    # echo "#define PJ_HAS_TLS_SOCK 1" >> "$CONFIG_SITE_PATH"
 
     echo "#define PJ_GETHOSTIP_DISABLE_LOCAL_RESOLUTION 1" >> "$CONFIG_SITE_PATH"
 
