@@ -34,22 +34,48 @@ function setConfigSite {
     echo "Creating config site file for Android ..."
     echo "#define PJ_CONFIG_ANDROID 1" > "$CONFIG_SITE_PATH"
     echo "#define PJMEDIA_HAS_G7221_CODEC 1" >> "$CONFIG_SITE_PATH"
-    echo "#include <pj/config_site_sample.h>" >> "$CONFIG_SITE_PATH"
-    echo "#define PJMEDIA_HAS_VIDEO 1" >> "$CONFIG_SITE_PATH"
-    echo "#define PJMEDIA_AUDIO_DEV_HAS_ANDROID_JNI 0" >> "$CONFIG_SITE_PATH"
-    echo "#define PJMEDIA_AUDIO_DEV_HAS_OPENSL 1" >> "$CONFIG_SITE_PATH"
+    echo "#define PJMEDIA_AUDIO_DEV_HAS_ANDROID_JNI 1" >> "$CONFIG_SITE_PATH"
+    echo "#define PJMEDIA_AUDIO_DEV_HAS_OPENSL 0" >> "$CONFIG_SITE_PATH"
+    echo "#define PJMEDIA_HAS_VAD 0" >> "$CONFIG_SITE_PATH"
     echo "#define PJSIP_AUTH_AUTO_SEND_NEXT 0" >> "$CONFIG_SITE_PATH"
     echo "#define PJMEDIA_HAS_OPUS_CODEC 1" >> "$CONFIG_SITE_PATH"
+    echo "#define PJ_HAS_TCP 1" >> "$CONFIG_SITE_PATH"
+    echo "#define PJMEDIA_HAS_LIBYUV 1" >> "$CONFIG_SITE_PATH"
+    echo "#define PJMEDIA_HAS_WEBRTC_AEC 1" >> "$CONFIG_SITE_PATH"
+    echo "#define PJMEDIA_WEBRTC_AEC_USE_MOBILE 1" >> "$CONFIG_SITE_PATH"
+    echo "#define PJ_HAS_IPV6 1" >> "$CONFIG_SITE_PATH"
+    echo "#define PJSIP_HAS_STUN 1" >> "$CONFIG_SITE_PATH"
+    echo "#define PJMEDIA_HAS_TURN 1" >> "$CONFIG_SITE_PATH"
+    echo "#define PJMEDIA_HAS_ICE 1" >> "$CONFIG_SITE_PATH"
+    echo "#define PJ_LOG_MAX_LEVEL 6" >> "$CONFIG_SITE_PATH"
+    echo "#define PJ_HAS_SSL_SOCK 1" >> "$CONFIG_SITE_PATH"
+    echo "#define PJ_HAS_TLS_SOCK 1" >> "$CONFIG_SITE_PATH"
 
-    if [ "${ENABLE_IPV6}" == "1" ]
+    if [ "${ENABLE_OPENSSL}" == "1" ]
     then
-        echo "#define PJ_HAS_IPV6 1" >> "$CONFIG_SITE_PATH"
+        echo "Changing PJSIP_MAX_PKT_LEN to 6000"
+        echo "#define PJSIP_MAX_PKT_LEN 6000" >> "$CONFIG_SITE_PATH"
+    else
+        echo "You have not enabled OpenSSL in config_site"
     fi
 
     if [ "${DOWNLOAD_BCG729}" == "1" ]
     then
         echo "#define PJMEDIA_HAS_BCG729 1" >> "$CONFIG_SITE_PATH"
     fi
+     if [ "${ENABLE_OPENH264}" == "1" ]
+    then
+        echo "Enabling Video support in config_site"
+        echo "#define PJMEDIA_HAS_VIDEO 1" >> "$CONFIG_SITE_PATH"
+        # TODO: must be tested before enabling following settings
+        # echo "#define PJMEDIA_VIDEO_DEV_HAS_OPENGL 1" >> "$CONFIG_SITE_PATH"
+        # echo "#define PJMEDIA_VIDEO_DEV_HAS_OPENGL_ES 1" >> "${CONFIG_SITE_PATH}"
+        # echo "#include <OpenGLES/ES3/glext.h>" >> "${CONFIG_SITE_PATH}"
+    else
+        echo "You have not enabled Video support in config_site"
+    fi
+
+    echo "#include <pj/config_site_sample.h>" >> "$CONFIG_SITE_PATH"
 }
 
 function buildPjSip {
